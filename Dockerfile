@@ -1,16 +1,27 @@
 FROM grazfather/pwndock:latest
 
-# GEF
-RUN cd ~/tools \
-    && git clone --depth 1 https://github.com/hugsy/gef.git \
-    && echo "source ~/tools/gef/gef.py" > ~/.gdbinit
+# Pwndbg
+RUN cd /opt && git clone https://github.com/pwndbg/pwndbg --depth 1 \
+	&& cd ./pwndbg && ./setup.sh
 
-# Install dotfiles
-RUN cd ~/tools \
-    && git clone --depth 1 https://github.com/Grazfather/dotfiles.git \
-    && bash ~/tools/dotfiles/init.sh
+# Dotfiles
+RUN cd ~ \
+	&& git clone --depth 1 https://github.com/r1fl/dots \
+	&& find dots -maxdepth 1 -name '.*' -exec mv \{\} . \; \
+	&& rm -r dots 
 
-RUN echo 'export PS1="[\[\e[34m\]\u\[\e[0m\]@\[\e[33m\]\H\[\e[0m\]:\w]\$ "' >> /root/.bashrc
+# Zsh
+RUN apt-get install -y zsh
 
-# work env
-WORKDIR /root/code
+# Neovim
+RUN apt-get install -y software-properties-common \
+	&& add-apt-repository -y ppa:neovim-ppa/stable \
+	&& apt-get update \
+	&& apt-get -y install neovim
+
+# Vim-plug
+RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+RUN nvim -c PlugInstall
+
