@@ -11,7 +11,13 @@ RUN cd ~ \
 	&& rm -r dots 
 
 # Zsh
-RUN apt-get install -y zsh
+RUN apt-get install -y zsh \
+	&& usermod -s /bin/zsh root
+
+# Oh-my-zsh
+RUN	sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" \
+	&& mv ~/.oh-my-zsh /usr/share/oh-my-zsh \
+	&& echo "source ~/.zsh/.ohmyzsh" >> ~/.zsh/.zshrc
 
 # Neovim
 RUN apt-get install -y software-properties-common \
@@ -23,5 +29,6 @@ RUN apt-get install -y software-properties-common \
 RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-RUN nvim -c PlugInstall
+#RUN nvim -c PlugInstall
+WORKDIR /root/
 
