@@ -1,7 +1,0 @@
-#!/bin/bash
-
-if [ "$#" -ge 1 ]; then
-    docker exec -it gpwn $@
-else
-    docker exec -it gpwn tmux
-fi

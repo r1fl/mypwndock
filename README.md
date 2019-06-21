@@ -16,9 +16,3 @@ The management scripts call the image and the container both 'gpwn'. A simple se
   * https://docs.docker.com/install/ to find the instructions if you're not using one of these two.
 2. Build: `./build` -- This will pull the base image 'grazfather/pwndock' from docker hub and apply the customizations in _Dockerfile_ on top.
 
-## Running it
-Management:
-
-* `start` - Start up the built image.
-* `stop` - Stop the running container.
-* `connect [COMMAND]` - Connect to a running container. Starts a `tmux` session by default.
