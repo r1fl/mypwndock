@@ -27,8 +27,9 @@ RUN apt-get install -y software-properties-common \
 
 # Vim-plug
 RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim \
+	&& pip2 install neovim
 
-#RUN nvim -c PlugInstall
+RUN nvim +PlugInstall +UpdateRemotePlugins +qall
 WORKDIR /root/
 
