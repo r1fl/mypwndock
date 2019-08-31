@@ -31,5 +31,15 @@ RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 	&& pip2 install neovim
 
 RUN nvim +PlugInstall +UpdateRemotePlugins +qall
+
+# Pwntools
+#RUN pip3 install pwntools
+
+# Ipython
+RUN apt-get install -y ipython ipython3
+
+# Tmux
+RUN echo '[[ $TERM != "screen" ]] && exec tmux' >> ~/.profile
+
 WORKDIR /root/
 
